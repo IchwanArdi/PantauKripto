@@ -1,69 +1,99 @@
-Pantau Kripto
-Aplikasi web untuk memantau harga cryptocurrency secara real-time. Dibuat dengan React dan menggunakan API CoinGecko.
-Fitur
+# 🚀 Pantau Kripto
 
-Pantau Crypto Real-time - Lihat harga cryptocurrency terbaru
-Pencarian - Cari cryptocurrency dengan mudah
-Mata Uang - Dukungan USD, IDR
-Grafik Harga - Chart interaktif dengan berbagai timeframe
-Dark/Light Mode - Pilih tema sesuai preferensi
-Responsive - Tampil optimal di desktop dan mobile
+Aplikasi web untuk memantau harga cryptocurrency secara real-time. Dibuat dengan React dan menggunakan API dari CoinGecko.
 
-Tech Stack
+## ✨ Fitur
 
-React 18 + Vite
-Tailwind CSS
-React Router DOM
-Recharts
-CoinGecko API
+- 🔄 **Pantau Harga Real-time** – Lihat harga cryptocurrency terbaru yang diperbarui secara berkala  
+- 🔍 **Pencarian** – Cari cryptocurrency dengan mudah menggunakan search bar  
+- 💱 **Mata Uang** – Dukung tampilan harga dalam USD dan IDR  
+- 📈 **Grafik Harga** – Chart interaktif dengan berbagai pilihan timeframe  
+- 🌗 **Dark/Light Mode** – Ubah tema sesuai preferensi pengguna  
+- 📱 **Responsive Design** – Tampil optimal di desktop maupun mobile
 
-Struktur Project
+## 🧰 Tech Stack
+
+- React 18 + Vite  
+- Tailwind CSS  
+- React Router DOM  
+- Recharts  
+- CoinGecko API
+
+## 🗂️ Struktur Project
+
 src/
-├── components/ # Komponen UI
-├── contexts/ # React Context
-├── hooks/ # Custom hooks
-├── pages/ # Halaman utama
-├── services/ # API services
-└── App.jsx
-Instalasi
+├── components/ # Komponen UI terpisah
+├── contexts/ # React Context (misalnya untuk tema dan pengaturan)
+├── hooks/ # Custom React hooks
+├── pages/ # Halaman utama seperti Home dan Detail
+├── services/ # API Service (pengambilan data dari CoinGecko)
+└── App.jsx # Root component
 
-Clone repository
+bash
+Salin
+Edit
 
-bashgit clone [https://github.com/username/crypto-tracker.git](https://github.com/IchwanArdi/PantauKripto.git)
+## ⚙️ Instalasi
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/IchwanArdi/PantauKripto.git
 cd PantauKripto
+2. Install Dependencies
+bash
+Salin
+Edit
+npm install
+3. Jalankan Development Server
+bash
+Salin
+Edit
+npm run dev
+Akses di browser: http://localhost:5173
 
-Install dependencies
+4. Build untuk Production
+bash
+Salin
+Edit
+npm run build
+🧩 Komponen Utama
+🏠 Home Page
+Menampilkan daftar top 6 cryptocurrency
 
-bashnpm install
+Search bar dengan fitur debouncing
 
-Jalankan development server
+Ringkasan market (global data)
 
-bashnpm run dev
+📊 Detail Page
+Informasi lengkap cryptocurrency (harga, rank, volume, market cap, dll)
 
-Buka browser di http://localhost:5173
+Grafik harga interaktif
 
-Build Production
-bashnpm run build
-Komponen Utama
-Home Page
+Statistik lengkap pasar
 
-Daftar top 6 cryptocurrency
-Search bar dengan debouncing
-Market summary
+🤝 Kontribusi
+Fork repository ini
 
-Detail Page
+Buat branch baru
 
-Info lengkap cryptocurrency
-Chart harga interaktif
-Statistik market
+bash
+Salin
+Edit
+git checkout -b feature/fitur-baru
+Commit perubahan
 
-Kontribusi
+bash
+Salin
+Edit
+git commit -m "Tambah fitur baru"
+Push ke branch tersebut
 
-Fork repository
-Buat branch baru (git checkout -b feature/fitur-baru)
-Commit perubahan (git commit -m 'Tambah fitur baru')
-Push ke branch (git push origin feature/fitur-baru)
-Buat Pull Request
+bash
+Salin
+Edit
+git push origin feature/fitur-baru
+Buat Pull Request ke repo utama
 
-License
-MIT License
+🪪 License
+Distributed under the MIT License.
