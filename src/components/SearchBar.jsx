@@ -1,4 +1,3 @@
-// src/components/SearchBar.jsx
 import { Search } from 'lucide-react';
 import { useSettings } from '../contexts/SettingsContext';
 

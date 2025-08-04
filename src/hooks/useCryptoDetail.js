@@ -1,4 +1,3 @@
-// src/hooks/useCryptoDetail.js
 import { useState, useEffect } from 'react';
 import { cryptoDetailService } from '../services/cryptoDetailService';
 import { useSettings } from '../contexts/SettingsContext';

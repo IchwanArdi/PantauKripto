@@ -1,4 +1,3 @@
-// src/pages/CryptoDetail.jsx
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useSettings } from '../contexts/SettingsContext';

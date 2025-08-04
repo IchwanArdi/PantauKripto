@@ -1,4 +1,3 @@
-// src/components/LoadingErrorStates.jsx
 import { useNavigate } from 'react-router-dom';
 import { useSettings } from '../contexts/SettingsContext';
 

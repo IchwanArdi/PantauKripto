@@ -1,4 +1,3 @@
-// src/pages/Home.jsx
 import { useEffect, useState } from 'react';
 import { useSettings } from '../contexts/SettingsContext';
 import { useCryptoData } from '../hooks/useCryptoData';

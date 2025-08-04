@@ -1,4 +1,3 @@
-// src/components/MarketStats.jsx
 import { useSettings } from '../contexts/SettingsContext';
 
 const MarketStats = ({ marketData, cryptoData }) => {

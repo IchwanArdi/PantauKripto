@@ -1,4 +1,3 @@
-// src/components/PriceChart.jsx
 import { BarChart3 } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { useSettings } from '../contexts/SettingsContext';

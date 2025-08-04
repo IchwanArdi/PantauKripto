@@ -1,4 +1,3 @@
-// src/components/CryptoInfoCard.jsx
 import { TrendingUp, TrendingDown } from 'lucide-react';
 import { useSettings } from '../contexts/SettingsContext';
 

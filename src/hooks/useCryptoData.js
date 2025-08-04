@@ -1,4 +1,3 @@
-// src/hooks/useCryptoData.js
 import { useState } from 'react';
 import { cryptoService } from '../services/cryptoService';
 import { useSettings } from '../contexts/SettingsContext';

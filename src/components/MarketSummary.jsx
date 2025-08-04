@@ -1,4 +1,3 @@
-// src/components/MarketSummary.jsx
 import { useSettings } from '../contexts/SettingsContext';
 
 // Komponen untuk menampilkan ringkasan pasar kripto
