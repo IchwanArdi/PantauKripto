@@ -105,7 +105,3 @@ npm run build
 
 ---
 
-## 🪪 License
-
-Proyek ini dilisensikan di bawah **MIT License**.  
-Lihat file `LICENSE` untuk detail lebih lanjut.
