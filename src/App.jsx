@@ -4,6 +4,7 @@ import Navbar from './components/Navbar.jsx';
 import Home from './pages/Home.jsx';
 import CryptoDetail from './pages/CryptoDetail';
 import Footer from './components/Footer.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
 
 // Komponen wrapper untuk mengakses darkMode dari context
 function AppContent() {
@@ -16,6 +17,7 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/crypto/:id" element={<CryptoDetail />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <Footer />
       </div>
