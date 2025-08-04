@@ -50,6 +50,16 @@ cd PantauKripto
 
 ### 2. Install Dependencies
 
+````
+
+### 2. Install Dependencies
+
+```bash
+npm install
+````
+
+### 3. Jalankan Development Server
+
 ```bash
 npm install
 ```
@@ -104,4 +114,3 @@ npm run build
 5. Buat Pull Request ke branch `main`
 
 ---
-

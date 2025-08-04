@@ -11,9 +11,9 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className={`text-sm flex items-center ${darkMode ? 'text-gray-400' : 'text-black'}`}>
-            <span>© {currentYear} CryptoTracker. Made with</span>
+            <span>© {currentYear} CryptoTracker. Dibuat dengan</span>
             <Heart className="w-4 h-4 text-red-400 mx-1" />
-            <span>in Indonesia</span>
+            <span>di Indonesia oleh Ichwan</span>
           </div>
 
           <div className="flex items-center space-x-6 text-sm">
