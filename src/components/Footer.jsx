@@ -13,7 +13,7 @@ const Footer = () => {
           <div className={`text-sm flex items-center ${darkMode ? 'text-gray-400' : 'text-black'}`}>
             <span>© {currentYear} CryptoTracker. Dibuat dengan</span>
             <Heart className="w-4 h-4 text-red-400 mx-1" />
-            <span>di Indonesia oleh Ichwan</span>
+            <span>oleh Ichwan</span>
           </div>
 
           <div className="flex items-center space-x-6 text-sm">
