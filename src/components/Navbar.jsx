@@ -73,12 +73,12 @@ function Navbar() {
               <div className="absolute right-0 mt-2 w-64 bg-gray-900/95 backdrop-blur-sm border border-white/20 rounded-xl shadow-xl z-50 overflow-hidden">
                 {/* Header Dropdown */}
                 <div className="px-4 py-3 border-b border-white/10">
-                  <h3 className="text-white font-semibold text-sm">Settings</h3>
+                  <h3 className="text-white font-semibold text-sm">Pengaturan</h3>
                 </div>
 
-                {/* Pilihan Currency */}
+                {/* Pilihan Mata Uang */}
                 <div className="p-4 border-b border-white/10">
-                  <label className="block text-gray-300 text-sm font-medium mb-3">Currency</label>
+                  <label className="block text-gray-300 text-sm font-medium mb-3">Mata Uang</label>
                   <div className="space-y-1">
                     {currencies.map((curr) => (
                       <button
@@ -103,7 +103,7 @@ function Navbar() {
 
                 {/* Toggle Tema (Dark/Light Mode) */}
                 <div className="p-4">
-                  <label className="block text-gray-300 text-sm font-medium mb-3">Theme</label>
+                  <label className="block text-gray-300 text-sm font-medium mb-3">Tema</label>
                   <button
                     onClick={toggleDarkMode}
                     className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
@@ -114,12 +114,12 @@ function Navbar() {
                       {darkMode ? (
                         <>
                           <Moon className="w-4 h-4 mr-2" />
-                          <span>Dark Mode</span>
+                          <span>Mode Gelap</span>
                         </>
                       ) : (
                         <>
                           <Sun className="w-4 h-4 mr-2" />
-                          <span>Light Mode</span>
+                          <span>Mode Terang</span>
                         </>
                       )}
                     </div>

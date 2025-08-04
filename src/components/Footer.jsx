@@ -11,7 +11,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className={`text-sm flex items-center ${darkMode ? 'text-gray-400' : 'text-black'}`}>
-            <span>© {currentYear} CryptoTracker. Dibuat dengan</span>
+            <span>© {currentYear} PantauKripto. Dibuat dengan</span>
             <Heart className="w-4 h-4 text-red-400 mx-1" />
             <span>oleh Ichwan</span>
           </div>
