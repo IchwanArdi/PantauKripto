@@ -50,10 +50,10 @@ function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo dan Brand, klik untuk ke halaman utama */}
           <div onClick={handleLogoClick} className="flex items-center cursor-pointer hover:opacity-80 transition-opacity duration-200">
-            <TrendingUp className={`${darkMode ? 'text-emerald-400' : 'text-black'} w-8 h-8 mr-2`} />
+            <TrendingUp className="text-emerald-400 w-8 h-8 mr-2" />
             <div className="flex items-center">
               <span className={`${darkMode ? 'text-white' : 'text-black'} font-bold text-lg`}>PantauKripto</span>
-              <span className={`${darkMode ? 'text-emerald-400 border-white/20 ' : 'text-black border-black'} font-semibold border rounded px-2 py-1 ml-2 text-xs`}>DEMO</span>
+              <span className={`${darkMode ? 'border-white/20 ' : 'border-black'} text-emerald-400 font-semibold border rounded px-2 py-1 ml-2 text-xs`}>DEMO</span>
             </div>
           </div>
 
