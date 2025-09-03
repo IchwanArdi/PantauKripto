@@ -1,4 +1,7 @@
-const COINGECKO_BASE = 'https://api.coingecko.com/api/v3';
+// coingecko.js
+require('dotenv').config();
+
+const COINGECKO_BASE = process.env.COINGECKO_BASE || 'https://api.coingecko.com/api/v3';
 
 // Helper function untuk fetch dengan error handling
 async function fetchWithRetry(url, retries = 3) {
