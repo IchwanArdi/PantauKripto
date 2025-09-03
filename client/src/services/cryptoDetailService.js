@@ -1,13 +1,15 @@
-const BASE_URL = 'https://api.coingecko.com/api/v3';
+// Menggunakan server lokal sebagai proxy ke CoinGecko API
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
 export const cryptoDetailService = {
-  // Mengambil data detail cryptocurrency dari CoinGecko
+  // Mengambil data detail cryptocurrency dari server lokal
   async fetchCryptoDetail(coinId) {
-    const response = await fetch(`${BASE_URL}/coins/${coinId}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=true`);
+    const response = await fetch(`${API_URL}/coins/${coinId}`);
 
     // Cek jika respons tidak berhasil
     if (!response.ok) {
-      throw new Error(`Terjadi kesalahan jaringan! status: ${response.status}`);
+      const errorData = await response.json().catch(() => null);
+      throw new Error(errorData?.error || `Terjadi kesalahan jaringan! status: ${response.status}`);
     }
 
     return await response.json();
@@ -15,11 +17,12 @@ export const cryptoDetailService = {
 
   // Mengambil data riwayat harga/chart cryptocurrency
   async fetchPriceHistory(coinId, currencyCode, days = '7') {
-    const response = await fetch(`${BASE_URL}/coins/${coinId}/market_chart?vs_currency=${currencyCode}&days=${days}`);
+    const response = await fetch(`${API_URL}/coins/${coinId}/market_chart?vs_currency=${currencyCode}&days=${days}`);
 
     // Cek jika respons tidak berhasil
     if (!response.ok) {
-      throw new Error(`Terjadi kesalahan jaringan! status: ${response.status}`);
+      const errorData = await response.json().catch(() => null);
+      throw new Error(errorData?.error || `Terjadi kesalahan jaringan! status: ${response.status}`);
     }
 
     return await response.json();

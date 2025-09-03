@@ -1,13 +1,14 @@
-const BASE_URL = 'https://api.coingecko.com/api/v3';
+// Menggunakan server lokal sebagai proxy ke CoinGecko API
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
 export const cryptoService = {
   // Mengambil data cryptocurrency teratas berdasarkan market cap
   async fetchTopCoins(currencyCode, limit = 6) {
-    const response = await fetch(`${BASE_URL}/coins/markets?vs_currency=${currencyCode}&order=market_cap_desc&per_page=${limit}&page=1&sparkline=false`);
+    const response = await fetch(`${API_URL}/coins/markets?vs_currency=${currencyCode}&per_page=${limit}&page=1`);
 
     if (!response.ok) {
-      // Jika terjadi error pada saat fetch data
-      throw new Error(`Terjadi kesalahan! status: ${response.status}`);
+      const errorData = await response.json().catch(() => null);
+      throw new Error(errorData?.error || `Terjadi kesalahan! status: ${response.status}`);
     }
 
     return await response.json();
@@ -15,11 +16,11 @@ export const cryptoService = {
 
   // Mencari cryptocurrency berdasarkan query
   async searchCoins(query) {
-    const response = await fetch(`${BASE_URL}/search?query=${encodeURIComponent(query)}`);
+    const response = await fetch(`${API_URL}/search?query=${encodeURIComponent(query)}`);
 
     if (!response.ok) {
-      // Jika terjadi error pada saat pencarian data
-      throw new Error(`Terjadi kesalahan! status: ${response.status}`);
+      const errorData = await response.json().catch(() => null);
+      throw new Error(errorData?.error || `Terjadi kesalahan! status: ${response.status}`);
     }
 
     return await response.json();
@@ -27,14 +28,19 @@ export const cryptoService = {
 
   // Mengambil data market untuk coin tertentu berdasarkan ID
   async fetchCoinsByIds(coinIds, currencyCode, limit = 6) {
-    const response = await fetch(`${BASE_URL}/coins/markets?vs_currency=${currencyCode}&ids=${coinIds.join(',')}&order=market_cap_desc&per_page=${limit}&page=1&sparkline=false`);
+    // Karena server kita tidak punya endpoint khusus untuk fetch by IDs,
+    // kita akan mengambil semua data dan filter di client
+    const response = await fetch(`${API_URL}/coins/markets?vs_currency=${currencyCode}&per_page=250&page=1`);
 
     if (!response.ok) {
-      // Jika terjadi error pada saat fetch data berdasarkan ID
-      throw new Error(`Terjadi kesalahan! status: ${response.status}`);
+      const errorData = await response.json().catch(() => null);
+      throw new Error(errorData?.error || `Terjadi kesalahan! status: ${response.status}`);
     }
 
-    return await response.json();
+    const data = await response.json();
+
+    // Filter berdasarkan coinIds yang diinginkan
+    return data.filter((coin) => coinIds.includes(coin.id)).slice(0, limit);
   },
 
   // Fungsi gabungan untuk mencari coin dan mengambil data market-nya
