@@ -5,14 +5,15 @@ const rateLimit = require('express-rate-limit');
 // Import routes
 const coinRoutes = require('./api/coins');
 const searchRoutes = require('./api/search');
-const healthRoutes = require('./api/health');
 
 const app = express();
 
-// CORS configuration
+// =====================
+// 🛡️ CORS configuration
+// =====================
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'https://pantaukripto.vercel.app'],
+    origin: ['http://localhost:5173', 'https://pantaukripto.vercel.app'],
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   })
@@ -20,21 +21,45 @@ app.use(
 
 app.use(express.json());
 
-// Rate limiting untuk mencegah spam request
-const limiter = rateLimit({
+// =====================
+// ⚡ Rate limiting
+// =====================
+
+// Global limiter (untuk semua /api)
+const globalLimiter = rateLimit({
   windowMs: 60 * 1000, // 1 menit
-  max: 30, // maksimal 30 request per menit per IP
-  message: { error: 'Terlalu banyak request, coba lagi dalam 1 menit' },
+  max: 30, // maksimal 30 request / menit / IP
+  handler: (req, res) => {
+    console.log(`⚠️ Rate limit global tercapai dari IP: ${req.ip}`);
+    res.status(429).json({ error: 'Terlalu banyak request, coba lagi dalam 1 menit' });
+  },
 });
 
-app.use('/api', limiter);
+// Search limiter (lebih ketat)
+const searchLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1 menit
+  max: 10, // maksimal 10 search / menit / IP
+  handler: (req, res) => {
+    console.log(`⚠️ Rate limit SEARCH tercapai dari IP: ${req.ip}`);
+    res.status(429).json({
+      error: 'Terlalu banyak pencarian, coba lagi nanti',
+    });
+  },
+});
 
-// Routes
+// Apply limiter
+app.use('/api', globalLimiter);
+app.use('/api/search', searchLimiter);
+
+// =====================
+// 📌 Routes
+// =====================
 app.use('/api/coins', coinRoutes);
 app.use('/api/search', searchRoutes);
-app.use('/', healthRoutes);
 
-// Error handling middleware
+// =====================
+// ❌ Error handling middleware
+// =====================
 app.use((err, req, res, next) => {
   console.error('Unhandled error:', err);
   res.status(500).json({ error: 'Internal server error' });

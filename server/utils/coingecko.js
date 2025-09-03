@@ -7,8 +7,7 @@ async function fetchWithRetry(url, retries = 3) {
       const response = await fetch(url);
 
       if (response.status === 429) {
-        // Jika rate limit, tunggu sebelum retry
-        const delay = Math.pow(2, i) * 1000; // Exponential backoff
+        const delay = Math.pow(2, i) * 1000; // exponential backoff
         console.log(`Rate limit hit, waiting ${delay}ms before retry ${i + 1}`);
         await new Promise((resolve) => setTimeout(resolve, delay));
         continue;
@@ -23,16 +22,13 @@ async function fetchWithRetry(url, retries = 3) {
       console.error(`Attempt ${i + 1} failed:`, error.message);
 
       if (i === retries - 1) {
-        throw error;
+        console.error('❌ Semua retry gagal:', url);
+        return null; // ✅ jangan throw, biar caller bisa handle
       }
 
-      // Wait before retry
       await new Promise((resolve) => setTimeout(resolve, 1000 * (i + 1)));
     }
   }
 }
 
-module.exports = {
-  COINGECKO_BASE,
-  fetchWithRetry,
-};
+module.exports = { COINGECKO_BASE, fetchWithRetry };
