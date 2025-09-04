@@ -9,7 +9,7 @@ const Home = () => {
   const { currency, getCurrentCurrency, darkMode } = useSettings();
   const { cryptoCoins, loading, error, fetchInitialCoins, searchCoins } = useCryptoData();
   const [searchQuery, setSearchQuery] = useState('');
-  const [showNotice, setShowNotice] = useState(true); // 🔥 popup state
+  const [showNotice, setShowNotice] = useState(false);
 
   // Ambil data koin kripto awal saat komponen pertama kali dimount atau saat currency berubah
   useEffect(() => {
@@ -29,6 +29,18 @@ const Home = () => {
     setSearchQuery(event.target.value);
   };
 
+  useEffect(() => {
+    const seenNotice = localStorage.getItem('seenNotice');
+    if (!seenNotice) {
+      setShowNotice(true);
+    }
+  }, []);
+
+  const handleCloseNotice = () => {
+    setShowNotice(false);
+    localStorage.setItem('seenNotice', 'true'); // ✅ simpan agar tidak muncul lagi
+  };
+
   return (
     <div className="px-4 py-10 max-w-6xl mx-auto relative">
       {/* 🔔 Popup Notice */}
@@ -41,7 +53,7 @@ const Home = () => {
               atau kendala <span className="font-semibold">koneksi jaringan</span>.
             </p>
 
-            <button onClick={() => setShowNotice(false)} className="w-full px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg transition">
+            <button onClick={handleCloseNotice} className="w-full px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg transition">
               Saya Mengerti
             </button>
           </div>
