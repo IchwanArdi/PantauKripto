@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { SettingsProvider, useSettings } from './contexts/SettingsContext.jsx';
+import ScrollToTop from './components/ScrollToTop.jsx';
 import Navbar from './components/Navbar.jsx';
 import Home from './pages/Home.jsx';
 import CryptoDetail from './pages/CryptoDetail';
@@ -12,6 +13,7 @@ function AppContent() {
 
   return (
     <Router>
+      <ScrollToTop />
       <div className={`min-h-screen relative overflow-hidden ${darkMode ? 'bg-gradient-to-br from-gray-900 via-black to-gray-800' : 'bg-gradient-to-br from-blue-50 via-white to-gray-100'}`}>
         <Navbar />
         <Routes>
