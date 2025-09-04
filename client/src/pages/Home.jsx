@@ -9,13 +9,14 @@ const Home = () => {
   const { currency, getCurrentCurrency, darkMode } = useSettings();
   const { cryptoCoins, loading, error, fetchInitialCoins, searchCoins } = useCryptoData();
   const [searchQuery, setSearchQuery] = useState('');
+  const [showNotice, setShowNotice] = useState(true); // 🔥 popup state
 
   // Ambil data koin kripto awal saat komponen pertama kali dimount atau saat currency berubah
   useEffect(() => {
     fetchInitialCoins();
   }, [currency]);
 
-  // Handle pencarian dengan debounce (menunda eksekusi searchCoins selama 500ms setelah user berhenti mengetik)
+  // Handle pencarian dengan debounce
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       searchCoins(searchQuery);
@@ -29,7 +30,24 @@ const Home = () => {
   };
 
   return (
-    <div className="px-4 py-10 max-w-6xl mx-auto">
+    <div className="px-4 py-10 max-w-6xl mx-auto relative">
+      {/* 🔔 Popup Notice */}
+      {showNotice && (
+        <div className={`fixed inset-0 bg-black/50 flex items-center justify-center z-50 `}>
+          <div className={` mx-5 max-w-md w-full rounded-2xl shadow-lg p-6 ${darkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-gray-800'}`}>
+            <h2 className="text-lg font-bold mb-2">ℹ️ Informasi</h2>
+            <p className="text-sm mb-4">
+              Data harga kripto pada website ini diambil secara real-time dari layanan pihak ketiga (CoinGecko). Dalam kondisi tertentu, data mungkin tidak dapat dimuat sepenuhnya akibat <span className="font-semibold">batasan API</span>{' '}
+              atau kendala <span className="font-semibold">koneksi jaringan</span>.
+            </p>
+
+            <button onClick={() => setShowNotice(false)} className="w-full px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg transition">
+              Saya Mengerti
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Judul halaman */}
       <h1 className={`text-3xl md:text-5xl font-bold mb-5 text-center ${darkMode ? 'text-white' : 'text-gray-900'}`}>Pantau Harga Kripto Secara Real-Time</h1>
       <p className={`text-center text-sm md:text-base mb-6 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Pantau aset kripto favorit kamu secara real-time, lengkap dengan grafik dan data historis.</p>

@@ -10,7 +10,7 @@ const SearchBar = ({ searchQuery, onSearchChange }) => {
       <div className="relative">
         {/* Icon search di sebelah kiri input */}
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-          <Search className={`z-50 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`} />
+          <Search className={`z-20 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`} />
         </div>
         {/* Input untuk pencarian */}
         <input
