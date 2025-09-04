@@ -27,7 +27,7 @@ app.use(express.json());
 // =====================
 app.use('/api', healthRoutes);
 
-// Trust first proxy (Railway/Heroku)
+// Trust first proxy (Railway)
 app.set('trust proxy', 1);
 
 // =====================

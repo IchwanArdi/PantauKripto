@@ -1,4 +1,3 @@
-// coingecko.js
 require('dotenv').config();
 
 const COINGECKO_BASE = process.env.COINGECKO_BASE || 'https://api.coingecko.com/api/v3';
