@@ -46,7 +46,7 @@ function Navbar() {
   return (
     // Navbar utama, sticky di atas
     <nav className={` ${darkMode ? 'bg-black/20' : 'bg-white/20 shadow-md'} backdrop-blur-lg border-b border-white/10 sticky top-0 z-50`}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-0">
         <div className="flex justify-between items-center h-16">
           {/* Logo dan Brand, klik untuk ke halaman utama */}
           <div onClick={handleLogoClick} className="flex items-center cursor-pointer hover:opacity-80 transition-opacity duration-200">

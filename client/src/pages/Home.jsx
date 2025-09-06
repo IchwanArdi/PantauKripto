@@ -29,16 +29,21 @@ const Home = () => {
     setSearchQuery(event.target.value);
   };
 
+  // ✅ Check berdasarkan waktu - popup muncul setiap hari
   useEffect(() => {
-    const seenNotice = localStorage.getItem('seenNotice');
-    if (!seenNotice) {
+    const lastShown = localStorage.getItem('lastNoticeShown');
+    const today = new Date().toDateString();
+
+    if (!lastShown || lastShown !== today) {
       setShowNotice(true);
     }
   }, []);
 
   const handleCloseNotice = () => {
     setShowNotice(false);
-    localStorage.setItem('seenNotice', 'true'); // ✅ simpan agar tidak muncul lagi
+    // ✅ Simpan tanggal hari ini
+    const today = new Date().toDateString();
+    localStorage.setItem('lastNoticeShown', today);
   };
 
   return (
