@@ -116,4 +116,5 @@ app.use((req, res) => {
   });
 });
 
-module.exports = app;
+// Export untuk Vercel serverless
+module.exports.default = app;
