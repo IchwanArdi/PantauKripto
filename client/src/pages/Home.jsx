@@ -16,17 +16,14 @@ const Home = () => {
     fetchInitialCoins();
   }, [currency]);
 
-  // Handle pencarian dengan debounce
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      searchCoins(searchQuery);
-    }, 500);
-
-    return () => clearTimeout(timeoutId);
-  }, [searchQuery]);
+  // Handle pencarian dengan debounce - removed duplicate debouncing
+  // searchCoins already handles debouncing in useCryptoData hook
 
   const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
+    const query = event.target.value;
+    setSearchQuery(query);
+    // Trigger search immediately
+    searchCoins(query);
   };
 
   // ✅ Check berdasarkan waktu - popup muncul setiap hari

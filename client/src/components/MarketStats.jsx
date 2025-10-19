@@ -1,17 +1,11 @@
 import { useSettings } from '../contexts/SettingsContext';
+import { memo } from 'react';
 
-const MarketStats = ({ marketData, cryptoData }) => {
+const MarketStats = memo(({ marketData, cryptoData }) => {
   // Mengambil fungsi dan state dari context Settings
-  const { getCurrentCurrency, darkMode } = useSettings();
+  const { getCurrentCurrency, darkMode, formatNumberLocal } = useSettings();
 
-  // Fungsi untuk memformat angka besar menjadi format lokal (K, M, B, T)
-  const formatNumberLocal = (num) => {
-    if (num >= 1e12) return (num / 1e12).toFixed(2) + 'T';
-    if (num >= 1e9) return (num / 1e9).toFixed(2) + 'B';
-    if (num >= 1e6) return (num / 1e6).toFixed(2) + 'M';
-    if (num >= 1e3) return (num / 1e3).toFixed(2) + 'K';
-    return num?.toLocaleString() || 'N/A';
-  };
+  // Use centralized formatNumberLocal from SettingsContext
 
   // Mendapatkan data mata uang yang sedang dipilih user
   const currentCurrency = getCurrentCurrency();
@@ -56,6 +50,8 @@ const MarketStats = ({ marketData, cryptoData }) => {
       ))}
     </div>
   );
-};
+});
+
+MarketStats.displayName = 'MarketStats';
 
 export default MarketStats;

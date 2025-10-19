@@ -18,8 +18,8 @@ const CryptoInfoCard = ({ cryptoData, currentPrice, priceChange24h, priceChange7
       {/* Bagian atas: logo, nama, simbol, dan peringkat */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6">
         <div className="flex items-center mb-4 md:mb-0">
-          {/* Logo kripto */}
-          <img src={cryptoData.image?.large} alt={cryptoData.name} className="w-16 h-16 mr-4 rounded-full" />
+          {/* Logo kripto dengan lazy loading */}
+          <img src={cryptoData.image?.large} alt={cryptoData.name} className="w-16 h-16 mr-4 rounded-full" loading="lazy" />
           <div>
             {/* Nama kripto */}
             <h1 className={`text-3xl font-bold mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{cryptoData.name}</h1>

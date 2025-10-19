@@ -3,9 +3,12 @@ import { SettingsProvider, useSettings } from './contexts/SettingsContext.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
 import Navbar from './components/Navbar.jsx';
 import Home from './pages/Home.jsx';
-import CryptoDetail from './pages/CryptoDetail';
+import { lazy, Suspense } from 'react';
 import Footer from './components/Footer.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
+
+// Lazy load CryptoDetail for better performance
+const CryptoDetail = lazy(() => import('./pages/CryptoDetail'));
 
 // Komponen wrapper untuk mengakses darkMode dari context
 function AppContent() {
@@ -18,7 +21,20 @@ function AppContent() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/crypto/:id" element={<CryptoDetail />} />
+          <Route
+            path="/crypto/:id"
+            element={
+              <Suspense
+                fallback={
+                  <div className="min-h-screen flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-400"></div>
+                  </div>
+                }
+              >
+                <CryptoDetail />
+              </Suspense>
+            }
+          />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <Footer />

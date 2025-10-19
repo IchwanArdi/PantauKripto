@@ -4,11 +4,12 @@ const COINGECKO_BASE = process.env.COINGECKO_BASE || 'https://api.coingecko.com/
 
 // Helper function untuk fetch dengan error handling yang lebih baik
 async function fetchWithRetry(url, retries = 3) {
-  console.log(`🚀 Attempting to fetch: ${url}`);
+  const isDebug = process.env.DEBUG === 'true';
+  if (isDebug) console.log(`🚀 Attempting to fetch: ${url}`);
 
   for (let i = 0; i < retries; i++) {
     try {
-      console.log(`📡 Attempt ${i + 1}/${retries} for: ${url}`);
+      if (isDebug) console.log(`📡 Attempt ${i + 1}/${retries} for: ${url}`);
 
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 detik timeout
@@ -23,14 +24,14 @@ async function fetchWithRetry(url, retries = 3) {
 
       clearTimeout(timeoutId);
 
-      console.log(`📊 Response status: ${response.status} for ${url}`);
+      if (isDebug) console.log(`📊 Response status: ${response.status} for ${url}`);
 
       // Handle rate limiting
       if (response.status === 429) {
         const retryAfter = response.headers.get('retry-after') || Math.pow(2, i);
         const delay = parseInt(retryAfter) * 1000;
 
-        console.log(`⏳ Rate limit hit, waiting ${delay}ms before retry ${i + 1}`);
+        if (isDebug) console.log(`⏳ Rate limit hit, waiting ${delay}ms before retry ${i + 1}`);
         await new Promise((resolve) => setTimeout(resolve, delay));
         continue;
       }
@@ -38,7 +39,7 @@ async function fetchWithRetry(url, retries = 3) {
       // Handle server errors
       if (response.status >= 500) {
         const delay = Math.pow(2, i) * 1000; // exponential backoff
-        console.log(`🔄 Server error ${response.status}, retrying in ${delay}ms`);
+        if (isDebug) console.log(`🔄 Server error ${response.status}, retrying in ${delay}ms`);
 
         if (i < retries - 1) {
           await new Promise((resolve) => setTimeout(resolve, delay));
@@ -79,7 +80,7 @@ async function fetchWithRetry(url, retries = 3) {
       // Parse JSON with error handling
       try {
         const data = await response.json();
-        console.log(`✅ Successfully fetched data from ${url}`);
+        if (isDebug) console.log(`✅ Successfully fetched data from ${url}`);
         return data;
       } catch (jsonError) {
         console.error('❌ JSON parsing failed:', jsonError);
@@ -94,7 +95,7 @@ async function fetchWithRetry(url, retries = 3) {
 
         if (i < retries - 1) {
           const delay = (i + 1) * 2000; // 2s, 4s, 6s
-          console.log(`🔄 Retrying after ${delay}ms due to timeout`);
+          if (isDebug) console.log(`🔄 Retrying after ${delay}ms due to timeout`);
           await new Promise((resolve) => setTimeout(resolve, delay));
           continue;
         }
@@ -108,7 +109,7 @@ async function fetchWithRetry(url, retries = 3) {
 
         if (i < retries - 1) {
           const delay = (i + 1) * 1000;
-          console.log(`🔄 Network retry in ${delay}ms`);
+          if (isDebug) console.log(`🔄 Network retry in ${delay}ms`);
           await new Promise((resolve) => setTimeout(resolve, delay));
           continue;
         }
@@ -124,7 +125,7 @@ async function fetchWithRetry(url, retries = 3) {
 
       // Wait before retrying
       const delay = (i + 1) * 1000;
-      console.log(`⏳ Waiting ${delay}ms before retry...`);
+      if (isDebug) console.log(`⏳ Waiting ${delay}ms before retry...`);
       await new Promise((resolve) => setTimeout(resolve, delay));
     }
   }
@@ -133,9 +134,10 @@ async function fetchWithRetry(url, retries = 3) {
 // Health check function untuk test koneksi ke CoinGecko
 async function healthCheck() {
   try {
-    console.log('🏥 Performing CoinGecko health check...');
+    const isDebug = process.env.DEBUG === 'true';
+    if (isDebug) console.log('🏥 Performing CoinGecko health check...');
     const data = await fetchWithRetry(`${COINGECKO_BASE}/ping`);
-    console.log('✅ CoinGecko health check passed:', data);
+    if (isDebug) console.log('✅ CoinGecko health check passed:', data);
     return { status: 'ok', data };
   } catch (error) {
     console.error('❌ CoinGecko health check failed:', error);

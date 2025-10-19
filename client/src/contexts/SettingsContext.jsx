@@ -94,6 +94,16 @@ export const SettingsProvider = ({ children }) => {
     return num.toLocaleString();
   };
 
+  // Fungsi untuk format angka besar dengan format lokal (K, M, B, T) - extracted from components
+  const formatNumberLocal = (num) => {
+    if (!num && num !== 0) return 'N/A';
+    if (num >= 1e12) return (num / 1e12).toFixed(2) + 'T';
+    if (num >= 1e9) return (num / 1e9).toFixed(2) + 'B';
+    if (num >= 1e6) return (num / 1e6).toFixed(2) + 'M';
+    if (num >= 1e3) return (num / 1e3).toFixed(2) + 'K';
+    return num?.toLocaleString() || 'N/A';
+  };
+
   // Nilai yang akan diberikan ke context
   const value = {
     // State
@@ -109,6 +119,7 @@ export const SettingsProvider = ({ children }) => {
     getCurrentCurrency,
     formatPrice,
     formatNumber,
+    formatNumberLocal,
   };
 
   // Membungkus children dengan provider context

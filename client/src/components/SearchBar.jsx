@@ -1,8 +1,9 @@
 import { Search } from 'lucide-react';
 import { useSettings } from '../contexts/SettingsContext';
+import { memo } from 'react';
 
 // Komponen SearchBar untuk menampilkan input pencarian
-const SearchBar = ({ searchQuery, onSearchChange }) => {
+const SearchBar = memo(({ searchQuery, onSearchChange }) => {
   const { darkMode } = useSettings(); // Mengambil status dark mode dari context
 
   return (
@@ -27,6 +28,8 @@ const SearchBar = ({ searchQuery, onSearchChange }) => {
       </div>
     </div>
   );
-};
+});
+
+SearchBar.displayName = 'SearchBar';
 
 export default SearchBar;

@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useSettings } from '../contexts/SettingsContext';
+import { memo } from 'react';
 
-const CoinCard = ({ coin }) => {
+const CoinCard = memo(({ coin }) => {
   const navigate = useNavigate();
   // Mengambil fungsi dan state dari context Settings
   const { formatPrice, formatNumber, getCurrentCurrency, darkMode } = useSettings();
@@ -23,8 +24,8 @@ const CoinCard = ({ coin }) => {
     >
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center">
-          {/* Menampilkan gambar coin */}
-          {coin.image && <img src={coin.image} alt={coin.name} className="w-8 h-8 mr-3 rounded-full" />}
+          {/* Menampilkan gambar coin dengan lazy loading */}
+          {coin.image && <img src={coin.image} alt={coin.name} className="w-8 h-8 mr-3 rounded-full" loading="lazy" />}
           <div>
             {/* Nama dan simbol coin */}
             <h2 className={`text-lg font-semibold group-hover:text-emerald-400 transition-colors duration-200 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{coin.name}</h2>
@@ -80,6 +81,8 @@ const CoinCard = ({ coin }) => {
       </div>
     </div>
   );
-};
+});
+
+CoinCard.displayName = 'CoinCard';
 
 export default CoinCard;

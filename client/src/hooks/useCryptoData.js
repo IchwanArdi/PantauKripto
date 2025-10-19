@@ -29,8 +29,8 @@ export const useCryptoData = () => {
   }, [getCurrentCurrency]);
 
   // Pencarian dengan debounce
-  const searchCoins = async (query) => {
-    setSearchQuery(query); // simpan input user
+  const searchCoins = (query) => {
+    setSearchQuery(query); // simpan input user - debounce akan handle pencarian
   };
 
   useEffect(() => {

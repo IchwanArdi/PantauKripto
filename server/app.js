@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
+const compression = require('compression');
+const helmet = require('helmet');
 
 // Import routes
 const coinRoutes = require('./api/coins');
@@ -8,6 +10,26 @@ const searchRoutes = require('./api/search');
 const healthRoutes = require('./api/health');
 
 const app = express();
+
+// =====================
+// 🛡️ Security & Performance Middleware
+// =====================
+// Add security headers
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        scriptSrc: ["'self'"],
+        imgSrc: ["'self'", 'data:', 'https:'],
+      },
+    },
+  })
+);
+
+// Add compression middleware
+app.use(compression());
 
 // =====================
 // 🛡️ CORS configuration

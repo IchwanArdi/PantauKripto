@@ -1,9 +1,10 @@
 import { BarChart3 } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { useSettings } from '../contexts/SettingsContext';
+import { memo } from 'react';
 
-const PriceChart = ({ chartData, chartLoading, timeframe, onTimeframeChange }) => {
-  const { getCurrentCurrency, darkMode } = useSettings();
+const PriceChart = memo(({ chartData, chartLoading, timeframe, onTimeframeChange }) => {
+  const { getCurrentCurrency, darkMode, formatNumberLocal } = useSettings();
 
   // Opsi rentang waktu chart
   const timeframeOptions = [
@@ -14,14 +15,7 @@ const PriceChart = ({ chartData, chartLoading, timeframe, onTimeframeChange }) =
     { label: '1T', value: '365' },
   ];
 
-  // Format angka ke bentuk lokal (K, M, B, T)
-  const formatNumberLocal = (num) => {
-    if (num >= 1e12) return (num / 1e12).toFixed(2) + 'T';
-    if (num >= 1e9) return (num / 1e9).toFixed(2) + 'B';
-    if (num >= 1e6) return (num / 1e6).toFixed(2) + 'M';
-    if (num >= 1e3) return (num / 1e3).toFixed(2) + 'K';
-    return num?.toLocaleString() || 'N/A';
-  };
+  // Use centralized formatNumberLocal from SettingsContext
 
   // Tooltip kustom untuk chart
   const CustomTooltip = ({ active, payload, label }) => {
@@ -139,6 +133,8 @@ const PriceChart = ({ chartData, chartLoading, timeframe, onTimeframeChange }) =
       )}
     </div>
   );
-};
+});
+
+PriceChart.displayName = 'PriceChart';
 
 export default PriceChart;
